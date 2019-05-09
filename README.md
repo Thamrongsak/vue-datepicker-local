@@ -1,5 +1,9 @@
 # vue-datepicker-local
 
+> vue-datepicker-local-th base on https://github.com/weifeiyue/vue-datepicker-local
+
+# vue-datepicker-local-th
+
 ### A Beautiful Datepicker Component For Vue2
 * Lightweight (less than 5kb minified and gzipped)
 * Only dependencies Vue
@@ -15,7 +19,7 @@
 ### Install
 
 ```bash
-$ npm install vue-datepicker-local
+$ npm install vue-datepicker-local-th
 ```
 
 ### ES6
@@ -25,7 +29,7 @@ $ npm install vue-datepicker-local
 </template>
 
 <script>
-import VueDatepickerLocal from 'vue-datepicker-local'
+import VueDatepickerLocal from 'vue-datepicker-local-th'
 
 export default {
   components: {
