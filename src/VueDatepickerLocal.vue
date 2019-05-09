@@ -8,8 +8,7 @@
         <template>
           <calendar-ranges 
             @rangeSelected="selectRange" 
-            :ranges="ranges" 
-            class=" hidden-xs"
+            :ranges="ranges"
           ></calendar-ranges>
         </template>
         <vue-datepicker-local-calendar v-model="dates[0]" :left="true" class="left"></vue-datepicker-local-calendar>
