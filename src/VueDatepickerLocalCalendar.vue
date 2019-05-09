@@ -264,6 +264,9 @@ export default {
   -ms-user-select: none;
   user-select: none;
 }
+.left.calendar {
+  border-left: 1px solid #ddd;
+}
 .calendar+.calendar{
   border-left: solid 1px #eaeaea;
   margin-left: 5px;

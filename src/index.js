@@ -1,4 +1,5 @@
 import component from './VueDatepickerLocal.vue'
+
 function install (Vue) {
   Vue.component(component.name, component)
 }

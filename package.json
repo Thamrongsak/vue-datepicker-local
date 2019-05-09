@@ -1,5 +1,5 @@
 {
-  "name": "vue-datepicker-local",
+  "name": "vue-datepicker-local-th",
   "version": "1.0.19",
   "description": "A datepicker for Vue.js",
   "main": "src/index.js",
@@ -25,20 +25,21 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/weifeiyue/vue-datepicker-local.git"
+    "url": "git+https://github.com/Thamrongsak/vue-datepicker-local.git"
   },
   "keywords": [
     "vue",
     "datepicker",
     "components"
   ],
-  "author": "weifeiyue <weifeiyue@meizu.com>",
+  "author": "Thamrongsak <somkhokkruad.t@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/weifeiyue/vue-datepicker-local/issues"
+    "url": "https://github.com/Thamrongsak/vue-datepicker-local/issues"
   },
-  "homepage": "https://github.com/weifeiyue/vue-datepicker-local#readme",
+  "homepage": "https://github.com/Thamrongsak/vue-datepicker-local#readme",
   "dependencies": {
+    "moment": "^2.24.0",
     "vue": "^2.5.15"
   },
   "devDependencies": {

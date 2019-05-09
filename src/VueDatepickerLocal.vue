@@ -5,7 +5,14 @@
   <transition name="datepicker-anim">
     <div class="datepicker-popup" :class="[popupClass,{'datepicker-inline':type==='inline'}]" tabindex="-1" v-if="show||type==='inline'">
       <template v-if="range">
-        <vue-datepicker-local-calendar v-model="dates[0]" :left="true"></vue-datepicker-local-calendar>
+        <template>
+          <calendar-ranges 
+            @rangeSelected="selectRange" 
+            :ranges="ranges" 
+            class=" hidden-xs"
+          ></calendar-ranges>
+        </template>
+        <vue-datepicker-local-calendar v-model="dates[0]" :left="true" class="left"></vue-datepicker-local-calendar>
         <vue-datepicker-local-calendar v-model="dates[1]" :right="true"></vue-datepicker-local-calendar>
       </template>
       <template v-else>
@@ -21,10 +28,14 @@
 </template>
 
 <script>
+import moment from 'moment'
 import VueDatepickerLocalCalendar from './VueDatepickerLocalCalendar.vue'
+import CalendarRanges from './CalendarRanges.vue'
+import { nextMonth, prevMonth, thisMonth, thisYear, lastWeek, lastMonth } from './util'
+
 export default {
   name: 'VueDatepickerLocal',
-  components: { VueDatepickerLocalCalendar },
+  components: { VueDatepickerLocalCalendar, CalendarRanges },
   props: {
     name: [String],
     inputClass: [String],
@@ -59,15 +70,26 @@ export default {
       default () {
         return {
           dow: 1, // Monday is the first day of the week
-          hourTip: '选择小时', // tip of select hour
-          minuteTip: '选择分钟', // tip of select minute
-          secondTip: '选择秒数', // tip of select second
-          yearSuffix: '年', // format of head
-          monthsHead: '1月_2月_3月_4月_5月_6月_7月_8月_9月_10月_11月_12月'.split('_'), // months of head
-          months: '一月_二月_三月_四月_五月_六月_七月_八月_九月_十月_十一月_十二月'.split('_'), // months of panel
-          weeks: '一_二_三_四_五_六_日'.split('_'), // weeks
-          cancelTip: '取消', // default text for cancel button
-          submitTip: '确定' // default text for submit button
+          hourTip: 'Select Hour', // tip of select hour
+          minuteTip: 'Select Minute', // tip of select minute
+          secondTip: 'Select Second', // tip of select second
+          yearSuffix: '', // format of head
+          monthsHead: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'), // months of head
+          months: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'), // months of panel
+          weeks: 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'), // weeks
+          cancelTip: 'Cancel', // default text for cancel button
+          submitTip: 'Submit' // default text for submit button
+        }
+      }
+    },
+    ranges: {
+      type: Object,
+      default () {
+        return {
+          'This month': new Date(),
+          'This year': new Date(),
+          'Last week': new Date(),
+          'Last month': new Date(),
         }
       }
     },
@@ -164,6 +186,45 @@ export default {
     cancel () {
       this.$emit('cancel')
       this.show = false
+    },
+    selectRange({rangeType, rangeData}) {
+      let thisDateRange = {}
+      switch( rangeType ) {
+        case 'This month':
+          thisDateRange = thisMonth()
+          this.dates = [thisDateRange.start, thisDateRange.end]
+          if(!this.showButtons){
+            this.show = false
+          }
+          break;
+        case 'This year':
+          thisDateRange = thisYear()
+          this.dates = [thisDateRange.start, thisDateRange.end]
+          if(!this.showButtons){
+            this.show = false
+          }
+          break;
+        case 'Last week':
+          thisDateRange = lastWeek()
+          this.dates = [thisDateRange.start, thisDateRange.end]
+          if(!this.showButtons){
+            this.show = false
+          }
+          break;
+        case 'Last month':
+          thisDateRange = lastMonth()
+          this.dates = [thisDateRange.start, thisDateRange.end]
+          if(!this.showButtons){
+            this.show = false
+          }
+          break;
+        default:
+          this.dates = rangeData
+          if(!this.showButtons){
+            this.show = false
+          }
+          break;
+      }
     }
   },
   mounted () {
@@ -287,7 +348,8 @@ export default {
 }
 
 .datepicker-range .datepicker-popup{
-  width: 403px;
+  /* width: 403px; */
+  width: 512px;
 }
 
 .datepicker-bottom {

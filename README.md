@@ -83,6 +83,7 @@ The `dist` folder contains `vue-datepicker-local.js` and `vue-datepicker-local.c
 | disabledDate | specify the date that cannot be selected         | Function   | (time, format)=>{return false} |
 | showButtons  | show Cancel/Submit buttons                       | Boolean  | false              |
 | placeholder	 | placeholder of Input | String     | --                 |
+| ranges        | list shortcuts jump to date       | Object    | ranges:  {<br/>'This month': new Date(),<br/>'This year': new Date(),<br/>'Last week': new Date(),<br/>'Last month': new Date()<br/>}
 
 ### Events
 
