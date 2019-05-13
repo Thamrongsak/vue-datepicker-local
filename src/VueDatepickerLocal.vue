@@ -3,7 +3,7 @@
   <input readonly :value="text" :class="[show ? 'focus' : '', inputClass]" :disabled="disabled" :placeholder="placeholder" :name="name" v-if="type!=='inline'"/>
   <a class="datepicker-close" @click.stop="cls"></a>
   <transition name="datepicker-anim">
-    <div class="datepicker-popup" :class="[popupClass,{'datepicker-inline':type==='inline'}]" tabindex="-1" v-if="show||type==='inline'">
+    <div class="datepicker-popup" :class="[popupClass,{'datepicker-inline':type==='inline'}, ranges ? 'ranges': '']" tabindex="-1" v-if="show||type==='inline'">
       <template v-if="range">
         <template>
           <calendar-ranges 
@@ -30,7 +30,7 @@
 import moment from 'moment'
 import VueDatepickerLocalCalendar from './VueDatepickerLocalCalendar.vue'
 import CalendarRanges from './CalendarRanges.vue'
-import { nextMonth, prevMonth, thisMonth, thisYear, lastWeek, lastMonth } from './util'
+import { nextMonth, prevMonth, thisMonth, thisYear, lastWeek, lastMonth, getQuarterRange } from './util'
 
 export default {
   name: 'VueDatepickerLocal',
@@ -186,6 +186,11 @@ export default {
       this.$emit('cancel')
       this.show = false
     },
+    setRangeType () {
+        console.log('setRangeType', this.get())
+    //   this.$emit('cancel')
+    //   this.show = false
+    },
     selectRange({rangeType, rangeData}) {
       let thisDateRange = {}
       switch( rangeType ) {
@@ -212,6 +217,34 @@ export default {
           break;
         case 'Last month':
           thisDateRange = lastMonth()
+          this.dates = [thisDateRange.start, thisDateRange.end]
+          if(!this.showButtons){
+            this.show = false
+          }
+          break;
+        case 'Quarter 1':
+          thisDateRange = getQuarterRange(1, this.dates)
+          this.dates = [thisDateRange.start, thisDateRange.end]
+          if(!this.showButtons){
+            this.show = false
+          }
+          break;
+        case 'Quarter 2':
+          thisDateRange = getQuarterRange(2, this.dates)
+          this.dates = [thisDateRange.start, thisDateRange.end]
+          if(!this.showButtons){
+            this.show = false
+          }
+          break;
+        case 'Quarter 3':
+          thisDateRange = getQuarterRange(3, this.dates)
+          this.dates = [thisDateRange.start, thisDateRange.end]
+          if(!this.showButtons){
+            this.show = false
+          }
+          break;
+        case 'Quarter 4':
+          thisDateRange = getQuarterRange(4, this.dates)
           this.dates = [thisDateRange.start, thisDateRange.end]
           if(!this.showButtons){
             this.show = false
@@ -347,7 +380,9 @@ export default {
 }
 
 .datepicker-range .datepicker-popup{
-  /* width: 403px; */
+  width: 403px;
+}
+.datepicker-range .datepicker-popup.ranges{
   width: 512px;
 }
 

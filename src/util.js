@@ -36,4 +36,10 @@ const lastMonth = () => {
   return {'start': start, 'end': end}
 }
 
-export { nextMonth, prevMonth, thisMonth, thisYear, lastWeek, lastMonth }
+const getQuarterRange = (quarter, dates) => {
+  const start = moment(dates[0]).quarter(quarter).startOf('quarter').toDate()
+  const end = moment(dates[0]).quarter(quarter).endOf('quarter').toDate()
+  return {'start': start, 'end': end}
+}
+
+export { nextMonth, prevMonth, thisMonth, thisYear, lastWeek, lastMonth, getQuarterRange }

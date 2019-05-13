@@ -1,6 +1,6 @@
 
 <template>
-    <div class="ranges">
+    <div class="ranges" v-if="ranges">
         <ul v-if="ranges">
             <li v-for="(value, key) in ranges" :key="key" @click="selectedRange(key, value)">{{key}}</li>
         </ul>
